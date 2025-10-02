@@ -40,11 +40,11 @@
 # 필요한 패키지 설치
 pip install -r requirements.txt
 
-# Jupyter Notebook 실행
-jupyter notebook
+# 리뷰 데이터 Crawling 실행
+python crawler.py
 
-# 또는 Python 파일 실행
-python main.py
+# 데모파일 실행
+python demo.py
 ```
 
 ---
