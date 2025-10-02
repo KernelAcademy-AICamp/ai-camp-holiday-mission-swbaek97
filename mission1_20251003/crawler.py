@@ -1,22 +1,20 @@
 import json
 import time
+import sys
 
 from bs4 import BeautifulSoup as bs
 from selenium import webdriver
 
 
-URL = "https://nol.yanolja.com/reviews/domestic/1000111922?sort=HOST_CHOICE"
-
-
-def crawl_yanolja_reviews():
+def crawl_yanolja_reviews(name, url):
     review_list = []  # 리뷰 저장할 리스트
     driver = webdriver.Chrome()  # 크롬 드라이버 초기화
-    driver.get(URL)  # 야놀자 리뷰 페이지 접속
+    driver.get(url)  # 야놀자 리뷰 페이지 접속
 
     time.sleep(3)
 
     # 리뷰 페이지가 스크롤을 해야 아래 리뷰가 더 불러와지기 때문에 스크롤 해야 함
-    scroll_count = 8
+    scroll_count = 20
     for i in range(scroll_count):
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         time.sleep(2)
@@ -45,9 +43,10 @@ def crawl_yanolja_reviews():
 
         review_list.append(review_dict)
 
-    with open("./resource/reviews.json", "w") as f:
+    with open(f"./resource/{name}.json", "w") as f:
         json.dump(review_list, f, ensure_ascii=False, indent=4)
 
 
 if __name__ == "__main__":
-    crawl_yanolja_reviews()
+    name, url = sys.argv[1], sys.argv[2]
+    crawl_yanolja_reviews(name, url)
