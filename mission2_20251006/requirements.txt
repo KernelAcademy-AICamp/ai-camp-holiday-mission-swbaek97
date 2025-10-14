@@ -1,0 +1,6 @@
+openai
+tqdm
+gradio
+google-generativeai
+anthropic
+dotenv
